@@ -4,6 +4,7 @@ import { ListToolsRequestSchema, CallToolRequestSchema } from "@modelcontextprot
 import { randomUUID } from "node:crypto";
 import { validate } from "../lib/validate.mjs";
 import { makeAuditEvent } from "../lib/audit.mjs";
+import { checkCompleteness } from "../lib/skills/completeness.mjs";
 
 export const TOOLS = [
   {
@@ -52,6 +53,16 @@ export const TOOLS = [
       required: ["application_id"],
     },
   },
+  {
+    name: "check_application_packet_completeness",
+    description:
+      "Flag outstanding documents in an application packet for human review. " +
+      "Returns which required document types are present and which are outstanding, " +
+      "with reasons (absent, expired, rejected, pending_review). " +
+      "Does NOT determine eligibility, approve, deny, or qualify applicants. " +
+      "Advisory only — human review is required before any action is taken.",
+    inputSchema: { type: "object", properties: { packet: { type: "object" } }, required: ["packet"] },
+  },
 ];
 
 export function handleCall(name, args = {}) {
@@ -84,6 +95,9 @@ export function handleCall(name, args = {}) {
       break;
     case "generate_notice_draft":
       result = { application_id: args.application_id, kind: args.kind ?? "status_update", human_review_required: true };
+      break;
+    case "check_application_packet_completeness":
+      result = checkCompleteness(args.packet ?? {}).result;
       break;
     default:
       throw new Error(`Unknown tool: ${name}`);
