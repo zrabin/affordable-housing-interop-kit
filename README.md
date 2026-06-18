@@ -96,50 +96,53 @@ A repeatable housing workflow capability, such as packet validation, missing-doc
 ```text
 .
 ├── README.md
-├── assets/
-│   └── cover.png
-├── docs/
-│   ├── PRD.md
-│   ├── agent-workflows.md
-│   ├── architecture.md
-│   ├── diagrams.md
-│   ├── governance.md
-│   ├── implementation-plan.md
-│   ├── positioning.md
-│   ├── principles.md
-│   ├── skill-catalog.md
-│   └── security-and-privacy.md
+├── package.json                 # scripts: generate · validate · demo · mcp · test
+├── openapi.yaml                 # REST interface spec (reference)
+├── lib/
+│   ├── validate.mjs             # ajv schema validator — validate(name, data) -> { valid, errors }
+│   ├── audit.mjs                # makeAuditEvent(...) -> schema-valid audit record
+│   └── demo.mjs                 # runDemo() — end-to-end flow + negative path
+├── synthetic-data/
+│   ├── generate.mjs             # seedable synthetic application-packet generator
+│   ├── fixtures/                # committed golden packets (seed 42, reproducible)
+│   └── README.md
+├── cli/
+│   ├── ahik.mjs                 # CLI: demo · mcp · help
+│   └── ahik.md                  # CLI reference
+├── mcp/
+│   ├── server.mjs               # reference MCP stdio server (6 audited tools)
+│   └── tools.md                 # tool reference
+├── scripts/
+│   ├── validate-json.mjs        # JSON parse check
+│   └── validate-schema.mjs      # schema validation of examples
+├── test/                        # node:test suites (11 tests)
 ├── schemas/
 │   ├── application-packet.schema.json
 │   ├── status-event.schema.json
 │   ├── document-request.schema.json
 │   └── audit-event.schema.json
-├── examples/
-│   ├── application-packet.example.json
-│   ├── status-event.example.json
-│   └── document-request.example.json
-├── mcp/
-│   └── tools.md
-├── cli/
-│   └── ahik.md
-└── synthetic-data/
-    └── README.md
+├── examples/                    # synthetic example payloads
+├── docs/                        # architecture · principles · governance · security · skill-catalog · ...
+├── assets/cover.png
+├── AUTHORS.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── LICENSE
+└── .github/workflows/validate.yml   # CI: install -> validate -> generate -> demo -> test
 ```
 
 ## Example Agent Actions
 
-An AI agent should never have unlimited access to sensitive housing workflows. It should operate through narrow, auditable tools:
+An AI agent should never have unlimited access to sensitive housing workflows. It should operate through narrow, auditable tools. The reference MCP server (`mcp/server.mjs`) implements **six** such tools today, and every call returns a real audit event:
 
-- `create_application_packet`
-- `validate_application_packet`
-- `request_missing_documents`
-- `check_application_status`
-- `summarize_status_for_applicant`
-- `generate_notice_draft`
-- `record_consent_grant`
-- `append_audit_event`
+- `validate_application_packet` — validate a packet against the schema (runs the real validator)
+- `create_document_request_draft` — draft a request for a missing document *(human review required)*
+- `summarize_application_status` — produce an applicant-friendly status summary
+- `record_consent_grant` — record a synthetic consent grant
+- `append_audit_event` — append a synthetic audit event
+- `generate_notice_draft` — draft an applicant-facing notice *(human review required)*
 
-Each tool should specify:
+Each tool specifies:
 
 - required inputs
 - allowed outputs
@@ -148,7 +151,7 @@ Each tool should specify:
 - audit behavior
 - failure modes
 
-See [mcp/tools.md](mcp/tools.md).
+These are **audited reference stubs** over synthetic data — they exercise the real interface and audit model without a backend. Additional tools (e.g. `create_application_packet`, `request_missing_documents`) are planned. See [mcp/tools.md](mcp/tools.md).
 
 ## Civic Skill Catalog
 
@@ -177,17 +180,27 @@ Requires Node 22+.
 ```bash
 npm install
 npm run generate     # write fresh synthetic application packets to synthetic-data/out/
-npm run validate     # JSON + schema validation of schemas and examples
+npm run validate     # JSON + schema validation of schemas, examples, and fixtures
 npm run demo         # one synthetic end-to-end flow: generate -> validate -> status + audit (+ a rejected-packet example)
 npm run mcp          # start the reference MCP server (stdio)
+npm test             # run the test suite (11 tests)
 ```
 
 > Run everything from a clone of this repo (the commands resolve to repo-local code). No global install or npm package required.
 
+**What runs today:**
+
+- `npm run generate` emits schema-valid synthetic application packets. The generator is **seedable** — `node synthetic-data/generate.mjs 3 --seed 42 --out fixtures` reproduces the committed golden fixtures byte-for-byte (so CI can detect drift); unseeded runs are fresh each time.
+- `npm run demo` shows the full pattern end to end: a packet is organized, validated, turned into a plain-language **status event** for the applicant, and an **audit event** is written for every step. It then runs a **negative path** — a deliberately invalid packet is caught at the schema level and the rejection is itself logged.
+- `npm run mcp` starts the reference MCP server over stdio, exposing the six audited tools above.
+- CI (`.github/workflows/validate.yml`) runs `validate -> generate -> demo -> test` on a clean checkout, so "it runs from a fresh clone" is enforced, not asserted.
+
 | Surface | Status |
 | --- | --- |
 | JSON schemas, OpenAPI spec, examples | implemented |
-| Synthetic generator, validator, `ahik demo` | implemented |
+| Synthetic generator (seedable) + golden fixtures | implemented |
+| Validator (`npm run validate`) + test suite (11 tests) | implemented |
+| End-to-end demo (`ahik demo`) with negative path + audit | implemented |
 | MCP reference server (6 audited stub tools) | implemented |
 | Full skill catalog (e.g. Synthetic Lease-Up Simulator) | planned |
 
