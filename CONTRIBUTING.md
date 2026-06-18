@@ -1,30 +1,25 @@
 # Contributing
 
-This project is a reference standard for affordable housing workflow interoperability.
+This project is a public reference standard for affordable housing workflow
+interoperability. It is published as a reference artifact, not an open-development
+project.
 
-Contributions should improve clarity, safety, and interoperability.
+## How To Engage
 
-## Good Contributions
+We are **not accepting pull requests** at this time. If you are a housing operator,
+agency, vendor, or civic technologist and want to discuss the interface, suggest a
+correction, or explore implementing against it, please open an issue describing your
+context, or reach out via the contact link in the README.
 
-- Clearer object definitions.
-- Better synthetic examples.
-- Safer agent tool boundaries.
-- Stronger audit event modeling.
-- More legible diagrams.
-- Better policy-facing explanations.
-- Schema improvements that remain implementation-neutral.
+## What Stays In Scope
 
-## Public Standard Boundary
+The public standard is limited to synthetic examples, reference interfaces, documented
+workflows, and human-reviewed agent actions. It contains no real applicant data, no live
+credentials, and no production endpoints.
 
-Keep the public standard limited to synthetic examples, reference interfaces, documented workflows, and human-reviewed agent actions.
+## Principles We Hold
 
-## Review Checklist
-
-Before opening a pull request, ask:
-
-- Is every example synthetic?
-- Does this preserve vendor neutrality?
-- Does this improve auditability?
-- Does this preserve tenant consent?
-- Could a developer build from this without private context?
-- Does this avoid implementation-specific vendor assumptions?
+- Every example is synthetic.
+- Vendor neutrality is preserved.
+- Auditability is improved, not weakened.
+- Tenant consent is respected.

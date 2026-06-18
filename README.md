@@ -150,6 +150,8 @@ See [mcp/tools.md](mcp/tools.md).
 
 ## Civic Skill Catalog
 
+> **Status:** Implemented commands are listed under **Quickstart**. Everything else in this kit is a documented **(planned)** reference surface.
+
 Skills make the platform story easier to understand. A skill is the product-level capability; an MCP tool is one way that capability can be executed safely.
 
 Examples:
@@ -213,3 +215,14 @@ This repository is suitable for:
 ## License
 
 Code is licensed under the MIT License. Documentation and examples are available under CC BY 4.0.
+
+## Acknowledgments
+
+The original concept and initial scaffolding for this kit came from **Clark Valberg**.
+
+## Note
+
+This is an independent reference project built by Zach Rabin, who works on
+affordable-housing-application technology. It is **not affiliated with, endorsed by, or
+built under contract with** the City of New York, HPD, or any housing agency. All data and
+examples are synthetic.
