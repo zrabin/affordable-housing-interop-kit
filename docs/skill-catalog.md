@@ -1,5 +1,7 @@
 # Civic Skill Catalog
 
+> **Status — read first:** This catalog is a set of reference *definitions*. Most entries are **(planned)** and are not yet implemented as code. **Two are implemented and runnable today:** Skill 1 (Application Packet Completeness Check, `ahik completeness`) and Skill 3 (Applicant Status Explanation, `ahik status`) — both in `lib/skills/`, exposed over the CLI and MCP, with tests. The rest describe intended capabilities for contributors and implementers to build against.
+
 Skills are reusable, reviewable housing workflow capabilities.
 
 They sit above raw API endpoints and MCP tools. A skill describes the useful thing a human, agency, operator, or agent is trying to accomplish. The underlying implementation can use schemas, APIs, MCP tools, CLI commands, or conventional software.
@@ -34,7 +36,7 @@ Each skill should define:
 
 ## Initial Skill Index
 
-### 1. Application Packet Completeness Check
+### 1. Application Packet Completeness Check — **implemented** (`ahik completeness`)
 
 Purpose: determine whether a packet has the required structure and expected supporting documents.
 
@@ -68,7 +70,7 @@ Review boundary:
 - automated for validation and draft summary
 - human review before communicating formal consequences
 
-### 2. Missing-Document Request Draft
+### 2. Missing-Document Request Draft — *(planned)*
 
 Purpose: create a clear request for missing, expired, or invalid documents.
 
@@ -102,7 +104,7 @@ Review boundary:
 
 - human approval required before applicant delivery
 
-### 3. Applicant Status Explanation
+### 3. Applicant Status Explanation — **implemented** (`ahik status`)
 
 Purpose: turn structured status events into a plain-language explanation of where an application stands.
 
@@ -135,7 +137,7 @@ Review boundary:
 - automated for informal status readouts when identity and consent are verified
 - human review for formal determination language
 
-### 4. Consent Grant Recorder
+### 4. Consent Grant Recorder — *(planned)*
 
 Purpose: record a bounded permission for a person or system to use applicant data for a specific purpose.
 
@@ -169,7 +171,7 @@ Review boundary:
 
 - explicit applicant or authorized representative action required
 
-### 5. Reviewer Handoff Brief
+### 5. Reviewer Handoff Brief — *(planned)*
 
 Purpose: summarize an application packet for a human reviewer without making a determination.
 
@@ -204,7 +206,7 @@ Review boundary:
 - automated for reviewer-facing draft briefs
 - human decision remains outside the skill
 
-### 6. Audit Trail Explainer
+### 6. Audit Trail Explainer — *(planned)*
 
 Purpose: produce a readable explanation of what happened in a workflow and which actors or systems took each action.
 
@@ -238,7 +240,7 @@ Review boundary:
 - automated for reviewer-facing summaries
 - human review before external disclosure
 
-### 7. Formal Notice Draft
+### 7. Formal Notice Draft — *(planned)*
 
 Purpose: draft formal applicant notices from structured status and document information while preserving human control.
 
@@ -271,7 +273,7 @@ Review boundary:
 
 - human approval always required before sending
 
-### 8. Synthetic Lease-Up Simulator
+### 8. Synthetic Lease-Up Simulator — *(planned)*
 
 Purpose: run an end-to-end workflow using synthetic applicants, packets, requests, status events, and audit trails.
 

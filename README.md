@@ -133,14 +133,15 @@ A repeatable housing workflow capability, such as packet validation, missing-doc
 
 ## Example Agent Actions
 
-An AI agent should never have unlimited access to sensitive housing workflows. It should operate through narrow, auditable tools. The reference MCP server (`mcp/server.mjs`) implements **six** such tools today, and every call returns a real audit event:
+An AI agent should never have unlimited access to sensitive housing workflows. It should operate through narrow, auditable tools. The reference MCP server (`mcp/server.mjs`) exposes **seven** such tools today, and every call returns an audit event. Three are backed by **real skill logic**; the rest are **audited stubs** that exercise the interface and audit model without a backend:
 
-- `validate_application_packet` — validate a packet against the schema (runs the real validator)
-- `create_document_request_draft` — draft a request for a missing document *(human review required)*
-- `summarize_application_status` — produce an applicant-friendly status summary
-- `record_consent_grant` — record a synthetic consent grant
-- `append_audit_event` — append a synthetic audit event
-- `generate_notice_draft` — draft an applicant-facing notice *(human review required)*
+- `validate_application_packet` — validate a packet against the schema *(real)*
+- `check_application_packet_completeness` — flag outstanding documents for human review; does not determine eligibility *(real skill)*
+- `summarize_application_status` — produce an applicant-facing status draft for human review *(real skill)*
+- `create_document_request_draft` — draft a request for a missing document, human review required *(stub)*
+- `record_consent_grant` — record a synthetic consent grant *(stub)*
+- `append_audit_event` — append a synthetic audit event *(stub)*
+- `generate_notice_draft` — draft an applicant-facing notice, human review required *(stub)*
 
 Each tool specifies:
 
@@ -151,25 +152,23 @@ Each tool specifies:
 - audit behavior
 - failure modes
 
-These are **audited reference stubs** over synthetic data — they exercise the real interface and audit model without a backend. Additional tools (e.g. `create_application_packet`, `request_missing_documents`) are planned. See [mcp/tools.md](mcp/tools.md).
+Additional tools (e.g. `create_application_packet`, `request_missing_documents`) are planned. See [mcp/tools.md](mcp/tools.md).
 
 ## Civic Skill Catalog
 
-> **Status:** Implemented commands are listed under **Quickstart**. Everything else in this kit is a documented **(planned)** reference surface.
+> **Status:** Two skills are **implemented and runnable** today (see Quickstart). The rest are **(planned)** reference definitions in [docs/skill-catalog.md](docs/skill-catalog.md).
 
 Skills make the platform story easier to understand. A skill is the product-level capability; an MCP tool is one way that capability can be executed safely.
 
-Examples:
+- **application packet completeness check** — *implemented* (`ahik completeness`)
+- **applicant status explanation** — *implemented* (`ahik status`)
+- missing-document request draft — *(planned)*
+- eligibility evidence organizer — *(planned)*
+- consent grant recorder — *(planned)*
+- audit trail explainer — *(planned)*
+- synthetic lease-up simulator — *(planned)*
 
-- application packet completeness check
-- missing-document request draft
-- applicant status explanation
-- eligibility evidence organizer
-- consent grant recorder
-- audit trail explainer
-- synthetic lease-up simulator
-
-Each skill should define the user it serves, the inputs it needs, the tools it may call, the review boundary, the audit events it creates, and the failure modes it must disclose.
+Each skill defines the user it serves, the inputs it needs, the tools it may call, the review boundary, the audit events it creates, and the failure modes it must disclose.
 
 See [docs/skill-catalog.md](docs/skill-catalog.md).
 
@@ -179,11 +178,13 @@ Requires Node 22+.
 
 ```bash
 npm install
-npm run generate     # write fresh synthetic application packets to synthetic-data/out/
-npm run validate     # JSON + schema validation of schemas, examples, and fixtures
-npm run demo         # one synthetic end-to-end flow: generate -> validate -> status + audit (+ a rejected-packet example)
-npm run mcp          # start the reference MCP server (stdio)
-npm test             # run the test suite (11 tests)
+npm run generate                  # write fresh synthetic application packets to synthetic-data/out/
+npm run validate                  # JSON + schema validation of schemas, examples, and fixtures
+npm run demo                      # end-to-end flow: generate -> validate -> status + audit (+ a rejected-packet example)
+node cli/ahik.mjs completeness    # skill: flag a packet's outstanding documents (synthetic) for human review
+node cli/ahik.mjs status          # skill: produce a plain-language applicant status draft (human-review-gated)
+npm run mcp                       # start the reference MCP server (stdio)
+npm test                          # run the test suite (26 tests)
 ```
 
 > Run everything from a clone of this repo (the commands resolve to repo-local code). No global install or npm package required.
@@ -192,17 +193,19 @@ npm test             # run the test suite (11 tests)
 
 - `npm run generate` emits schema-valid synthetic application packets. The generator is **seedable** — `node synthetic-data/generate.mjs 3 --seed 42 --out fixtures` reproduces the committed golden fixtures byte-for-byte (so CI can detect drift); unseeded runs are fresh each time.
 - `npm run demo` shows the full pattern end to end: a packet is organized, validated, turned into a plain-language **status event** for the applicant, and an **audit event** is written for every step. It then runs a **negative path** — a deliberately invalid packet is caught at the schema level and the rejection is itself logged.
-- `npm run mcp` starts the reference MCP server over stdio, exposing the six audited tools above.
+- **Two real skills** (`lib/skills/`): `completeness` inspects a packet's documents against the required set and flags what's outstanding for human review (it does **not** determine eligibility); `status` orchestrates that into a human-review-gated, plain-language applicant status draft. Both emit audit events and are exposed over the CLI and MCP.
+- `npm run mcp` starts the reference MCP server over stdio, exposing the seven audited tools above.
 - CI (`.github/workflows/validate.yml`) runs `validate -> generate -> demo -> test` on a clean checkout, so "it runs from a fresh clone" is enforced, not asserted.
 
 | Surface | Status |
 | --- | --- |
 | JSON schemas, OpenAPI spec, examples | implemented |
 | Synthetic generator (seedable) + golden fixtures | implemented |
-| Validator (`npm run validate`) + test suite (11 tests) | implemented |
+| Validator + test suite (26 tests) | implemented |
 | End-to-end demo (`ahik demo`) with negative path + audit | implemented |
-| MCP reference server (6 audited stub tools) | implemented |
-| Full skill catalog (e.g. Synthetic Lease-Up Simulator) | planned |
+| Skills: completeness check + applicant status explanation | implemented |
+| MCP reference server (7 tools — 3 real skills + 4 audited stubs) | implemented |
+| Remaining skill catalog (e.g. Synthetic Lease-Up Simulator) | planned |
 
 See [docs/diagrams.md](docs/diagrams.md) for the architecture diagram.
 
