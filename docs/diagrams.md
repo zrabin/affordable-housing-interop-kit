@@ -1,5 +1,18 @@
 # Diagrams
 
+## Architecture
+
+```mermaid
+flowchart LR
+  A[Synthetic Data Generator] --> B[Application Packet]
+  B --> C[Schema Validator]
+  C --> D[Agent Skills via MCP Tools]
+  D -->|human review| E[Status Events]
+  D --> F[Audit Trail]
+  E --> G[Applicant-facing Summary]
+  F --> H[Auditable Record]
+```
+
 ## Civic Interop Layer
 
 ```mermaid

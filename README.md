@@ -4,6 +4,8 @@
 
 # Affordable Housing Interop Kit
 
+![Validate](https://github.com/<zach-account>/affordable-housing-interop-kit/actions/workflows/validate.yml/badge.svg)
+
 An open reference architecture for modern, auditable, agent-ready affordable housing application workflows.
 
 This repository defines a public interoperability layer: a neutral set of schemas, APIs, MCP tools, civic skill definitions, CLI commands, synthetic data, and implementation patterns that housing operators, software vendors, civic technology teams, and public agencies can build against.
@@ -170,23 +172,26 @@ See [docs/skill-catalog.md](docs/skill-catalog.md).
 
 ## Quickstart
 
-The first useful workflow is a synthetic flow:
-
-1. Create a synthetic applicant household.
-2. Generate an application packet.
-3. Validate the packet.
-4. Request a missing document.
-5. Append a status event.
-6. Produce an applicant-friendly summary.
-7. Show the audit trail.
-
-Target command shape:
+Requires Node 22+.
 
 ```bash
-ahik workflow synthetic-application
-ahik validate examples/application-packet.example.json
-ahik status examples/status-event.example.json
+npm install
+npm run generate     # write fresh synthetic application packets to synthetic-data/out/
+npm run validate     # JSON + schema validation of schemas and examples
+npm run demo         # one synthetic end-to-end flow: generate -> validate -> status + audit (+ a rejected-packet example)
+npm run mcp          # start the reference MCP server (stdio)
 ```
+
+> Run everything from a clone of this repo (the commands resolve to repo-local code). No global install or npm package required.
+
+| Surface | Status |
+| --- | --- |
+| JSON schemas, OpenAPI spec, examples | implemented |
+| Synthetic generator, validator, `ahik demo` | implemented |
+| MCP reference server (6 audited stub tools) | implemented |
+| Full skill catalog (e.g. Synthetic Lease-Up Simulator) | planned |
+
+See [docs/diagrams.md](docs/diagrams.md) for the architecture diagram.
 
 ## Design Principles
 
