@@ -23,12 +23,15 @@ test("complete packet → complete===true, outstanding empty, all three types pr
     `expected all three types in present; got ${JSON.stringify(result.present)}`);
 });
 
-// --- INCOMPLETE packet: plain generateApplicationPacket() only has income_verification ---
+// --- INCOMPLETE packet: only income_verification present, others absent ---
 test("incomplete packet → complete===false, identity_document and proof_of_residence outstanding as absent", () => {
   const packet = generateApplicationPacket();
-  // generateApplicationPacket() only includes a single income_verification doc.
+  // Explicitly set to only income_verification doc
+  packet.documents = [{ document_id: "d_inc", document_type: "income_verification", status: "accepted" }];
   const { result } = checkCompleteness(packet);
   assert.equal(result.complete, false);
+  assert.deepEqual(result.present, ["income_verification"],
+    `expected present to be ["income_verification"]; got ${JSON.stringify(result.present)}`);
   const outstandingTypes = result.outstanding.map((o) => o.document_type);
   assert.ok(outstandingTypes.includes("identity_document"),
     `expected identity_document outstanding; got ${JSON.stringify(outstandingTypes)}`);
