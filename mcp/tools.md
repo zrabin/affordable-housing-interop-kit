@@ -52,23 +52,26 @@ Output:
 
 ## Tool: `summarize_application_status`
 
-Purpose: produce a plain-language status summary for an applicant, operator, or reviewer.
+Purpose: produce an applicant-facing status DRAFT by orchestrating a completeness check and mapping the result to a plain-language status event.
 
-Risk: low to medium, depending on audience.
+Risk: medium — applicant-facing draft; must not be sent to applicants without human review.
 
-Requires human approval: no for reviewer-facing summary; yes before external applicant delivery in regulated contexts.
+Requires human approval: yes, always before applicant delivery.
+
+Does NOT determine eligibility, approve, deny, or qualify applicants.
+
+Side effects: draft only.
 
 Input:
 
-- application id
-- status events
-- document requests
+- application packet (full packet object)
 
 Output:
 
-- summary
-- next steps
-- unresolved blockers
+- statusEvent (validated against status-event schema; status is one of: draft, missing_documents, under_review)
+- summary (plain-language string)
+- human_review_required (always true)
+- completeness (completeness check result)
 
 ## Tool: `record_consent_grant`
 

@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 import { validate } from "../lib/validate.mjs";
 import { makeAuditEvent } from "../lib/audit.mjs";
 import { checkCompleteness } from "../lib/skills/completeness.mjs";
+import { explainStatus } from "../lib/skills/status-explanation.mjs";
 
 export const TOOLS = [
   {
@@ -23,8 +24,12 @@ export const TOOLS = [
   },
   {
     name: "summarize_application_status",
-    description: "Produce an applicant-friendly status summary for a synthetic application.",
-    inputSchema: { type: "object", properties: { application_id: { type: "string" } }, required: ["application_id"] },
+    description:
+      "Produce an applicant-facing status DRAFT for a synthetic application packet. " +
+      "Orchestrates completeness check and maps result to a status event. " +
+      "Requires human review before applicant delivery. " +
+      "Does NOT determine eligibility, approve, deny, or qualify applicants.",
+    inputSchema: { type: "object", properties: { packet: { type: "object" } }, required: ["packet"] },
   },
   {
     name: "record_consent_grant",
@@ -85,7 +90,7 @@ export function handleCall(name, args = {}) {
       };
       break;
     case "summarize_application_status":
-      result = { application_id: args.application_id, applicant_summary: "Your application is under review." };
+      result = explainStatus(args.packet ?? {}).result;
       break;
     case "record_consent_grant":
       result = { grant_id: `grant_${randomUUID().slice(0, 8)}`, grantee: args.grantee, purpose: args.purpose };

@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { runDemo } from "../lib/demo.mjs";
 import { generateApplicationPacket } from "../synthetic-data/generate.mjs";
 import { checkCompleteness } from "../lib/skills/completeness.mjs";
+import { explainStatus } from "../lib/skills/status-explanation.mjs";
 
 const [cmd, arg] = process.argv.slice(2);
 
@@ -37,6 +38,24 @@ switch (cmd) {
     }
     break;
   }
+  case "status": {
+    let packet;
+    if (arg) {
+      try {
+        packet = JSON.parse(readFileSync(arg, "utf8"));
+      } catch (err) {
+        console.error(`Error reading packet file: ${err.message}`);
+        process.exit(1);
+      }
+    } else {
+      packet = generateApplicationPacket();
+    }
+    const output = explainStatus(packet);
+    const { result, audit, reviewBoundary } = output;
+    console.log(JSON.stringify({ statusEvent: result.statusEvent, summary: result.summary, audit, reviewBoundary }, null, 2));
+    console.log(`\nDRAFT STATUS: "${result.statusEvent.status}" — human review required before applicant-facing delivery.`);
+    break;
+  }
   case "mcp": {
     let mod;
     try {
@@ -56,9 +75,10 @@ switch (cmd) {
         "Commands:",
         "  demo                run a synthetic end-to-end flow (generate -> validate -> status + audit, plus a rejected-packet example)",
         "  completeness [file] check a packet for document completeness (flags outstanding docs for human review; uses synthetic packet if no file given)",
+        "  status [file]       explain applicant status as a plain-language draft (human review required before delivery; uses synthetic packet if no file given)",
         "  mcp                 start the reference MCP server (stdio)",
         "",
-        "Planned (roadmap): submit, status, request-docs, review",
+        "Planned (roadmap): submit, request-docs, review",
       ].join("\n"),
     );
 }

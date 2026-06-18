@@ -29,3 +29,17 @@ test("check_application_packet_completeness tool returns a result with boolean c
   assert.ok(Array.isArray(result.present));
   assert.equal(audit.action, "check_application_packet_completeness");
 });
+
+test("summarize_application_status tool returns a real statusEvent with human_review_required===true", () => {
+  const packet = generateApplicationPacket();
+  packet.documents = [
+    { document_id: "d1", document_type: "income_verification",  status: "accepted" },
+    { document_id: "d2", document_type: "identity_document",    status: "accepted" },
+    { document_id: "d3", document_type: "proof_of_residence",   status: "accepted" },
+  ];
+  const { result } = handleCall("summarize_application_status", { packet });
+  assert.ok(result.statusEvent, "expected result.statusEvent");
+  assert.equal(result.human_review_required, true);
+  assert.equal(result.statusEvent.status, "under_review");
+  assert.ok(typeof result.summary === "string" && result.summary.length > 0);
+});
