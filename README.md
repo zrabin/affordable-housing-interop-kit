@@ -115,7 +115,8 @@ A repeatable housing workflow capability, such as packet validation, missing-doc
 ├── scripts/
 │   ├── validate-json.mjs        # JSON parse check
 │   └── validate-schema.mjs      # schema validation of examples
-├── test/                        # node:test suites (11 tests)
+├── lib/skills/                  # real skills: completeness.mjs · status-explanation.mjs
+├── test/                        # node:test suites (26 tests)
 ├── schemas/
 │   ├── application-packet.schema.json
 │   ├── status-event.schema.json
