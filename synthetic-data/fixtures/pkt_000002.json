@@ -1,0 +1,52 @@
+{
+  "packet_id": "pkt_000002",
+  "created_at": "2026-01-01T00:00:00.000Z",
+  "applicant": {
+    "applicant_id": "app_000003",
+    "full_name": "Quinn Okafor",
+    "preferred_contact_method": "sms",
+    "language_preference": "es"
+  },
+  "household": {
+    "household_id": "hh_000004",
+    "members": [
+      {
+        "member_id": "mem_000000",
+        "relationship": "self",
+        "age_band": "adult"
+      },
+      {
+        "member_id": "mem_000001",
+        "relationship": "child",
+        "age_band": "senior"
+      }
+    ],
+    "income_sources": [
+      {
+        "source_id": "inc_000005",
+        "source_type": "pension",
+        "annualized_amount": 71928
+      }
+    ]
+  },
+  "opportunity": {
+    "opportunity_id": "opp_000006",
+    "program_type": "mitchell_lama",
+    "unit_size": "studio"
+  },
+  "consent_grants": [
+    {
+      "grant_id": "grant_000007",
+      "grantee": "reference-housing-operator",
+      "purpose": "eligibility_review",
+      "granted_at": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "doc_000008",
+      "document_type": "income_verification",
+      "status": "pending_review"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "packet_id": "pkt_00000k",
+  "created_at": "2026-01-01T00:00:00.000Z",
+  "applicant": {
+    "applicant_id": "app_00000l",
+    "full_name": "Reese Romero",
+    "preferred_contact_method": "email",
+    "language_preference": "en"
+  },
+  "household": {
+    "household_id": "hh_00000m",
+    "members": [
+      {
+        "member_id": "mem_00000j",
+        "relationship": "self",
+        "age_band": "adult"
+      }
+    ],
+    "income_sources": [
+      {
+        "source_id": "inc_00000n",
+        "source_type": "other",
+        "annualized_amount": 49264
+      }
+    ]
+  },
+  "opportunity": {
+    "opportunity_id": "opp_00000o",
+    "program_type": "hdfc",
+    "unit_size": "1br"
+  },
+  "consent_grants": [
+    {
+      "grant_id": "grant_00000p",
+      "grantee": "reference-housing-operator",
+      "purpose": "eligibility_review",
+      "granted_at": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "doc_00000q",
+      "document_type": "income_verification",
+      "status": "missing"
+    }
+  ]
+}
