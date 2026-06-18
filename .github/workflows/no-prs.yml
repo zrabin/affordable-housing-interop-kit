@@ -1,0 +1,31 @@
+name: No Pull Requests
+
+# This is a published reference, not an open-development project (contact-us model).
+# GitHub can't disable PRs in settings, so any opened PR is politely closed with a
+# pointer to Issues. See CONTRIBUTING.md.
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Thanks for your interest! This project is published as a reference and does not accept pull requests. Please open an **issue** to discuss a correction or idea, or reach out via the contact in the README. See CONTRIBUTING.md.",
+            });
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              state: "closed",
+            });
