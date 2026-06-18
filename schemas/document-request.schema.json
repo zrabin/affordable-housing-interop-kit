@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/ahik/schemas/document-request.schema.json",
+  "title": "Document Request",
+  "type": "object",
+  "required": ["request_id", "application_id", "document_type", "reason", "due_at", "created_at", "requesting_party", "applicant_message"],
+  "properties": {
+    "request_id": { "type": "string" },
+    "application_id": { "type": "string" },
+    "document_type": { "type": "string" },
+    "reason": { "type": "string" },
+    "acceptable_formats": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "due_at": { "type": "string", "format": "date-time" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "requesting_party": { "type": "string" },
+    "applicant_message": { "type": "string" },
+    "human_review_required": { "type": "boolean", "default": true }
+  }
+}
+

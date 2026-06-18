@@ -1,0 +1,59 @@
+{
+  "packet_id": "pkt_synthetic_001",
+  "created_at": "2026-06-16T15:55:00Z",
+  "applicant": {
+    "applicant_id": "app_synthetic_001",
+    "full_name": "Maya Rivera",
+    "preferred_contact_method": "email",
+    "language_preference": "en"
+  },
+  "household": {
+    "household_id": "hh_synthetic_001",
+    "members": [
+      {
+        "member_id": "mem_001",
+        "relationship": "self",
+        "age_band": "adult"
+      },
+      {
+        "member_id": "mem_002",
+        "relationship": "child",
+        "age_band": "minor"
+      }
+    ],
+    "income_sources": [
+      {
+        "source_id": "inc_001",
+        "source_type": "employment",
+        "annualized_amount": 48200
+      }
+    ]
+  },
+  "opportunity": {
+    "opportunity_id": "opp_synthetic_101",
+    "program_type": "income-restricted rental",
+    "unit_size": "2BR"
+  },
+  "consent_grants": [
+    {
+      "grant_id": "cns_001",
+      "grantee": "Synthetic Marketing Agent",
+      "purpose": "Application completeness review",
+      "granted_at": "2026-06-16T15:50:00Z",
+      "expires_at": "2026-12-31T23:59:59Z"
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "doc_001",
+      "document_type": "photo_id",
+      "status": "provided"
+    },
+    {
+      "document_id": "doc_002",
+      "document_type": "recent_pay_stub",
+      "status": "missing"
+    }
+  ]
+}
+

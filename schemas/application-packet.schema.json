@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/ahik/schemas/application-packet.schema.json",
+  "title": "Application Packet",
+  "type": "object",
+  "required": ["packet_id", "applicant", "household", "opportunity", "consent_grants", "documents", "created_at"],
+  "properties": {
+    "packet_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "applicant": {
+      "type": "object",
+      "required": ["applicant_id", "full_name", "preferred_contact_method"],
+      "properties": {
+        "applicant_id": { "type": "string" },
+        "full_name": { "type": "string" },
+        "preferred_contact_method": { "enum": ["email", "phone", "sms", "mail", "portal"] },
+        "language_preference": { "type": "string" }
+      }
+    },
+    "household": {
+      "type": "object",
+      "required": ["household_id", "members", "income_sources"],
+      "properties": {
+        "household_id": { "type": "string" },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["member_id", "relationship", "age_band"],
+            "properties": {
+              "member_id": { "type": "string" },
+              "relationship": { "type": "string" },
+              "age_band": { "enum": ["minor", "adult", "senior"] }
+            }
+          }
+        },
+        "income_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source_id", "source_type", "annualized_amount"],
+            "properties": {
+              "source_id": { "type": "string" },
+              "source_type": { "enum": ["employment", "benefits", "self_employment", "pension", "other"] },
+              "annualized_amount": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "opportunity": {
+      "type": "object",
+      "required": ["opportunity_id", "program_type"],
+      "properties": {
+        "opportunity_id": { "type": "string" },
+        "program_type": { "type": "string" },
+        "unit_size": { "type": "string" }
+      }
+    },
+    "consent_grants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["grant_id", "grantee", "purpose", "granted_at"],
+        "properties": {
+          "grant_id": { "type": "string" },
+          "grantee": { "type": "string" },
+          "purpose": { "type": "string" },
+          "granted_at": { "type": "string", "format": "date-time" },
+          "expires_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["document_id", "document_type", "status"],
+        "properties": {
+          "document_id": { "type": "string" },
+          "document_type": { "type": "string" },
+          "status": { "enum": ["provided", "missing", "expired", "rejected", "accepted", "pending_review"] }
+        }
+      }
+    }
+  }
+}
+

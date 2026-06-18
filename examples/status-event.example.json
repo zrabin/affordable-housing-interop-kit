@@ -1,0 +1,13 @@
+{
+  "event_id": "evt_synthetic_001",
+  "application_id": "pkt_synthetic_001",
+  "status": "missing_documents",
+  "reason_code": "missing_recent_pay_stub",
+  "occurred_at": "2026-06-16T16:00:00Z",
+  "actor": {
+    "actor_type": "agent",
+    "actor_id": "agent_synthetic_reviewer"
+  },
+  "applicant_summary": "Your application packet is missing a recent pay stub. Please upload one by the due date so review can continue.",
+  "internal_notes": "Synthetic event; no real applicant data."
+}

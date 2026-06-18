@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Affordable Housing Interop Kit API
+  version: 1.0.0
+  description: Reference API surface for synthetic affordable housing interoperability workflows.
+servers:
+  - url: https://api.example.org/ahik/v1
+    description: Example reference server
+paths:
+  /application-packets:
+    post:
+      summary: Create an application packet
+      operationId: createApplicationPacket
+      responses:
+        "201":
+          description: Application packet created
+  /application-packets/{packet_id}/validate:
+    post:
+      summary: Validate an application packet
+      operationId: validateApplicationPacket
+      parameters:
+        - name: packet_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Validation result
+  /applications/{application_id}/status-events:
+    post:
+      summary: Append a status event
+      operationId: appendStatusEvent
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Status event appended
+  /applications/{application_id}/document-requests:
+    post:
+      summary: Create a document request draft
+      operationId: createDocumentRequestDraft
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Document request draft created
+  /applications/{application_id}/audit-events:
+    get:
+      summary: List audit events
+      operationId: listAuditEvents
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Audit events

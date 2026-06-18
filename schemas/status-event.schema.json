@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/ahik/schemas/status-event.schema.json",
+  "title": "Status Event",
+  "type": "object",
+  "required": ["event_id", "application_id", "status", "occurred_at", "actor", "applicant_summary"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "application_id": { "type": "string" },
+    "status": {
+      "enum": ["draft", "submitted", "under_review", "missing_documents", "eligible", "ineligible", "selected", "waitlisted", "withdrawn", "closed"]
+    },
+    "reason_code": { "type": "string" },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "actor": {
+      "type": "object",
+      "required": ["actor_type", "actor_id"],
+      "properties": {
+        "actor_type": { "enum": ["human", "system", "agent"] },
+        "actor_id": { "type": "string" }
+      }
+    },
+    "applicant_summary": { "type": "string" },
+    "internal_notes": { "type": "string" }
+  }
+}
+

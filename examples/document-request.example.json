@@ -1,0 +1,13 @@
+{
+  "request_id": "req_synthetic_001",
+  "application_id": "pkt_synthetic_001",
+  "document_type": "recent_pay_stub",
+  "reason": "Required income documentation is missing from the application packet.",
+  "acceptable_formats": ["pdf", "jpg", "png"],
+  "due_at": "2026-06-30T23:59:59Z",
+  "created_at": "2026-06-16T16:01:00Z",
+  "requesting_party": "Synthetic Marketing Agent",
+  "applicant_message": "Please upload a recent pay stub so your application can continue through review.",
+  "human_review_required": true
+}
+
