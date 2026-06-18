@@ -10,7 +10,13 @@ switch (cmd) {
     break;
   }
   case "mcp": {
-    const mod = await import("../mcp/server.mjs");
+    let mod;
+    try {
+      mod = await import("../mcp/server.mjs");
+    } catch {
+      console.error("The MCP server is not available in this build.");
+      process.exit(1);
+    }
     await mod.main();
     break;
   }
