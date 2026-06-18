@@ -3,8 +3,23 @@
   "version": "1.0.0",
   "description": "Reference layer for modern, auditable, agent-ready affordable housing application workflows.",
   "license": "MIT",
+  "author": "Zach Rabin",
+  "type": "module",
+  "bin": { "ahik": "cli/ahik.mjs" },
   "scripts": {
-    "validate:json": "node scripts/validate-json.mjs"
+    "validate:json": "node scripts/validate-json.mjs",
+    "validate:schema": "node scripts/validate-schema.mjs",
+    "validate": "npm run validate:json && npm run validate:schema",
+    "generate": "node synthetic-data/generate.mjs",
+    "demo": "node cli/ahik.mjs demo",
+    "mcp": "node cli/ahik.mjs mcp",
+    "test": "node --test"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
 }
