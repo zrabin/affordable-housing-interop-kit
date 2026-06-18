@@ -4,7 +4,7 @@
 
 # Affordable Housing Interop Kit
 
-![Validate](https://github.com/<zach-account>/affordable-housing-interop-kit/actions/workflows/validate.yml/badge.svg)
+![Validate](https://github.com/zrabin/affordable-housing-interop-kit/actions/workflows/validate.yml/badge.svg)
 
 An open reference architecture for modern, auditable, agent-ready affordable housing application workflows.
 
