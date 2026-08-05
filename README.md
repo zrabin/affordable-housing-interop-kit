@@ -76,7 +76,7 @@ The Standard is built for public-sector scrutiny: every example is synthetic, te
 
 This is an open invitation, and it is deliberately easy to accept.
 
-- **Support the Standard.** Read [CHARTER.md](CHARTER.md), which states the principles and exactly what supporting does and does not commit you to (no fees, no exclusivity, no obligation to adopt anything). To be listed in [SUPPORTERS.md](SUPPORTERS.md), email **zach@harmonyworks.com** with your organization's name, or open a pull request.
+- **Support the Standard.** Read [CHARTER.md](CHARTER.md), which states the principles and exactly what supporting does and does not commit you to (no fees, no exclusivity, no obligation to adopt anything). To be listed in [SUPPORTERS.md](SUPPORTERS.md), email **russ@harmonyworks.com** and **zach@harmonyworks.com** with your organization's name, or open a pull request.
 - **Give feedback.** Email works. So do [GitHub issues](../../issues) and [discussions](../../discussions) if that is your habitat. We want to hear what is wrong or missing at least as much as what resonates.
 - **Implement or co-steward.** If you want to build against the Standard or help govern it, [docs/governance.md](docs/governance.md) describes the path from supporter to co-steward.
 

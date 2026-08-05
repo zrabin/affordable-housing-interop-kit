@@ -4,7 +4,7 @@ The Open Housing Data Standard is developed in the open, and contributions are w
 
 ## Ways to engage
 
-- **Email.** If GitHub is not your habitat, email **zach@harmonyworks.com** with feedback, corrections, questions, or a request to be listed as a supporter. Email carries the same weight as any other channel.
+- **Email.** If GitHub is not your habitat, email **russ@harmonyworks.com** and **zach@harmonyworks.com** with feedback, corrections, questions, or a request to be listed as a supporter. Email carries the same weight as any other channel.
 - **Discussions.** For open-ended questions and ideas about the Standard, use GitHub Discussions.
 - **Issues.** For a specific correction, gap, or proposal, open an issue. Describe your context: operator, vendor, agency, civic technologist, or applicant advocate.
 - **Pull requests.** PRs are welcome, from a typo fix to a schema change proposal. Schema changes should include or update examples and tests. All PRs are reviewed by a maintainer before merge.
