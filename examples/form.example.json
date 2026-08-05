@@ -1,0 +1,16 @@
+{
+  "form_id": "frm_synthetic_001",
+  "application_id": "pkt_synthetic_001",
+  "form_type": "tenant_income_certification",
+  "form_title": "Tenant Income Certification",
+  "program": "synthetic_affordable_program",
+  "status": "signed",
+  "created_at": "2026-06-16T16:20:00Z",
+  "signers": [
+    { "role": "head_of_household", "name": "Synthetic Applicant", "signed_at": "2026-06-20T15:00:00Z" },
+    { "role": "owner_representative", "name": "Synthetic Marketing Agent", "signed_at": "2026-06-20T15:05:00Z" }
+  ],
+  "effective_period": { "from": "2026-07-01", "to": "2027-06-30" },
+  "related_document_ids": ["doc_synthetic_001", "doc_synthetic_002"],
+  "human_review_required": true
+}

@@ -44,15 +44,18 @@ stateDiagram-v2
     closed --> [*]
 ```
 
-An application can also be withdrawn by the applicant at any point. Every arrow in that picture is a **status event** any compliant system can read. Five building blocks flow through the lifecycle, and the Standard defines a schema for each:
+An application can also be withdrawn by the applicant at any point. Every arrow in that picture is a **status event** any compliant system can read. Six building blocks flow through the lifecycle, and the Standard defines a schema for each:
 
 | Building block | What it is |
 | --- | --- |
 | **Application packet** | A structured, tenant-consented bundle of household, income, document, and eligibility information |
 | **Status event** | A machine-readable update in the application lifecycle |
 | **Document request** | A structured request for a missing or expired document, with reason, due date, and acceptable formats |
+| **Form** | A required instrument completed and signed by the parties, such as a Tenant Income Certification, with completion state, signers, and effective period |
 | **Notice** | A structured applicant-facing communication: appointments, deadlines, eligibility outcomes, lease offers |
 | **Audit event** | An append-only record of every meaningful action, by human or software, with actor, purpose, and timestamp |
+
+The Standard models forms at the instance level today: which form, its status, who signed it, what period it covers. Machine-readable form *definitions*, so a certification completed once can be understood and reused by any compliant system, are the headline of where the Standard goes next.
 
 Plain-language definitions for every term live in [docs/concepts.md](docs/concepts.md).
 
@@ -84,7 +87,7 @@ A convening of supporters is being planned. Supporters will be the first to hear
 
 ## What's in this repository
 
-- **Schemas** for application packets (applicant, household, consent grants, documents), status events, document requests, notices, and audit records
+- **Schemas** for application packets (applicant, household, consent grants, documents), status events, document requests, forms, notices, and audit records
 - **OpenAPI spec** for conventional software integrations
 - **MCP tools** for agent workflows with human-review boundaries
 - **Civic skill catalog** for repeatable, reviewable housing capabilities
@@ -94,9 +97,9 @@ A convening of supporters is being planned. Supporters will be the first to hear
 
 | Surface | Status |
 | --- | --- |
-| JSON schemas (5), OpenAPI spec, examples | implemented |
+| JSON schemas (6), OpenAPI spec, examples | implemented |
 | Synthetic generator (seedable) + golden fixtures | implemented |
-| Validator + test suite (28 tests) | implemented |
+| Validator + test suite (30 tests) | implemented |
 | End-to-end demo (`ahik demo`) with negative path + audit | implemented |
 | Skills: completeness check + applicant status explanation | implemented |
 | MCP reference server (7 tools: 3 real skills + 4 audited stubs) | implemented |
@@ -116,7 +119,7 @@ npm run demo                      # end-to-end flow: generate -> validate -> sta
 node cli/ahik.mjs completeness    # skill: flag a packet's outstanding documents (synthetic) for human review
 node cli/ahik.mjs status          # skill: produce a plain-language applicant status draft (human-review-gated)
 npm run mcp                       # start the reference MCP server (stdio)
-npm test                          # run the test suite (28 tests)
+npm test                          # run the test suite (30 tests)
 ```
 
 The reference MCP server exposes seven narrowly scoped, audited tools (validate a packet, check completeness, summarize status, draft a document request, record a consent grant, append an audit event, draft a notice). Every call returns an audit event, and applicant-facing drafts require human review. See [mcp/tools.md](mcp/tools.md) and [docs/skill-catalog.md](docs/skill-catalog.md).
@@ -142,11 +145,12 @@ CI runs `validate -> generate -> demo -> test` on a clean checkout, so "it runs 
 ├── cli/                         # ahik CLI + reference
 ├── mcp/                         # reference MCP stdio server + tool reference
 ├── scripts/                     # JSON + schema validation scripts
-├── test/                        # node:test suites (28 tests)
+├── test/                        # node:test suites (30 tests)
 ├── schemas/
 │   ├── application-packet.schema.json
 │   ├── status-event.schema.json
 │   ├── document-request.schema.json
+│   ├── form.schema.json
 │   ├── notice.schema.json
 │   └── audit-event.schema.json
 ├── examples/                    # synthetic example payloads

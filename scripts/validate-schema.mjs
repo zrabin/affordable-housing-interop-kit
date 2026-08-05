@@ -7,6 +7,7 @@ const exampleToSchema = {
   "document-request.example.json": "document-request",
   "status-event.example.json": "status-event",
   "notice.example.json": "notice",
+  "form.example.json": "form",
 };
 
 let failures = 0;

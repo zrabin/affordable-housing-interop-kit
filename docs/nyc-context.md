@@ -15,6 +15,7 @@ New affordable units in New York are marketed through public lotteries. Househol
 | A household applies to a lottery | **Application packet**: household, income, preferences, and documents in one consented bundle |
 | An applicant is reached on the list and enters review | **Status event** (`submitted`, `under review`) |
 | The marketing team requests pay stubs, IDs, or asset statements | **Document request**, with reason, due date, and acceptable formats |
+| The household and owner complete required certifications (Tenant Income Certification, Student Status Certification, Asset Certification) | **Form**: which instrument, its completion state, who signed it, and the period it covers |
 | An appointment letter, deadline reminder, or eligibility outcome letter goes out | **Notice**, drafted for human review before it reaches the applicant |
 | An eligibility determination is made, appealed, or a lease is offered | **Status event** (`eligible`, `ineligible`, `selected`) plus its **notice** |
 | An owner or agency asks "who did what, and when?" | **Audit trail**: every action above, append-only, with actor and purpose |

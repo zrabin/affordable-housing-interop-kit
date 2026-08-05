@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/ahik/schemas/form.schema.json",
+  "title": "Form",
+  "description": "A required instrument completed and signed by parties to an application, such as a Tenant Income Certification, Student Status Certification, or Asset Certification. Modeled at the instance level: which form, its completion state, who signed it, and what period it covers. Field-level form definitions are a roadmap item.",
+  "type": "object",
+  "required": ["form_id", "application_id", "form_type", "status", "created_at"],
+  "properties": {
+    "form_id": { "type": "string" },
+    "application_id": { "type": "string" },
+    "form_type": {
+      "type": "string",
+      "description": "Machine-readable form identifier, e.g. tenant_income_certification, student_status_certification, asset_certification"
+    },
+    "form_title": { "type": "string" },
+    "program": {
+      "type": "string",
+      "description": "Program or regulatory context the form belongs to, if any"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "completed", "signed"]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "signers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role"],
+        "properties": {
+          "role": { "type": "string" },
+          "name": { "type": "string" },
+          "signed_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "effective_period": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string", "format": "date" },
+        "to": { "type": "string", "format": "date" }
+      }
+    },
+    "related_document_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "human_review_required": { "type": "boolean", "default": true }
+  }
+}
