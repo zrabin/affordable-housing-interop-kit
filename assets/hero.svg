@@ -75,9 +75,9 @@
     <rect class="card" x="815" y="440" width="170" height="44" rx="8"/>
     <text class="cardlabel" x="900" y="467">Public agencies</text>
 
-    <rect x="740" y="215" width="320" height="70" rx="12" fill="#2563eb"/>
+    <rect x="730" y="215" width="340" height="70" rx="12" fill="#2563eb"/>
     <text x="900" y="243" text-anchor="middle" style="font: 700 15px ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#ffffff">Open Housing Data Standard</text>
-    <text x="900" y="266" text-anchor="middle" style="font: 400 11.5px ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#dbeafe">packets · statuses · documents · notices · audit</text>
+    <text x="900" y="266" text-anchor="middle" style="font: 400 11px ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#dbeafe">packets · statuses · documents · forms · notices · audit</text>
 
     <text class="caption" x="905" y="505">One shared language. Consented data, machine-readable statuses,</text>
     <text class="caption" x="905" y="522">and an audit trail by default.</text>

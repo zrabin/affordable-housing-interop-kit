@@ -53,6 +53,19 @@ paths:
       responses:
         "201":
           description: Document request draft created
+  /applications/{application_id}/forms:
+    post:
+      summary: Record a form instance
+      operationId: recordFormInstance
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Form instance recorded
   /applications/{application_id}/notices:
     post:
       summary: Create a notice draft

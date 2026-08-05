@@ -18,6 +18,10 @@ A machine-readable update in the application lifecycle: submitted, missing docum
 
 A structured request for missing or expired documents, including reason, due date, acceptable formats, and responsible party. Schema: [document-request.schema.json](../schemas/document-request.schema.json).
 
+## Form
+
+A required instrument completed and signed by parties to an application, such as a Tenant Income Certification, Student Status Certification, or Asset Certification. Unlike a document (evidence handed over), a form carries completion state, signers, and an effective period. The Standard models forms at the instance level; machine-readable field-level form definitions are a roadmap item. Schema: [form.schema.json](../schemas/form.schema.json).
+
 ## Notice
 
 A structured, applicant-facing communication tied to an application: an appointment, a document deadline, an eligibility outcome, an appeal outcome, a lease offer, or a general notice. Notices are drafted for human review before they reach an applicant. Schema: [notice.schema.json](../schemas/notice.schema.json).
