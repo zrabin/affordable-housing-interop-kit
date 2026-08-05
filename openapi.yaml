@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
-  title: Affordable Housing Interop Kit API
-  version: 1.0.0
+  title: Open Housing Data Standard API
+  version: 0.1.0
   description: Reference API surface for synthetic affordable housing interoperability workflows.
 servers:
   - url: https://api.example.org/ahik/v1
@@ -53,6 +53,19 @@ paths:
       responses:
         "201":
           description: Document request draft created
+  /applications/{application_id}/notices:
+    post:
+      summary: Create a notice draft
+      operationId: createNoticeDraft
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Notice draft created
   /applications/{application_id}/audit-events:
     get:
       summary: List audit events
