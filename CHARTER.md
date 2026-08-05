@@ -29,4 +29,4 @@ The Open Housing Data Standard is a public, open effort to give that shared inte
 
 ## How to sign
 
-Email **zach@harmonyworks.com** with your organization's name and how you would like to be listed, or open a pull request adding your organization to [SUPPORTERS.md](SUPPORTERS.md).
+Email **russ@harmonyworks.com** and **zach@harmonyworks.com** with your organization's name and how you would like to be listed, or open a pull request adding your organization to [SUPPORTERS.md](SUPPORTERS.md).
