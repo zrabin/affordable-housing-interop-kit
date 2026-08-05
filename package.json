@@ -1,7 +1,7 @@
 {
-  "name": "affordable-housing-interop-kit",
-  "version": "1.0.0",
-  "description": "Reference layer for modern, auditable, agent-ready affordable housing application workflows.",
+  "name": "open-housing-data-standard",
+  "version": "0.1.0",
+  "description": "Open Housing Data Standard: an open data standard for New York's affordable housing applications, with a reference implementation.",
   "license": "MIT",
   "author": "Zach Rabin",
   "type": "module",

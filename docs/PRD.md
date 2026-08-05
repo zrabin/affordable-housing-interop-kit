@@ -1,5 +1,7 @@
 # PRD: Affordable Housing Interop Kit
 
+> Historical document. The project now goes by **Open Housing Data Standard**; this PRD predates the rename and is preserved as written.
+
 ## One-Liner
 
 Affordable Housing Interop Kit is an open-source reference layer for interoperable, auditable, agent-ready affordable housing application workflows.

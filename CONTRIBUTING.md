@@ -1,23 +1,23 @@
 # Contributing
 
-This project is a public reference standard for affordable housing workflow
-interoperability. It is published as a reference artifact, not an open-development
-project.
+The Open Housing Data Standard is developed in the open, and contributions are welcome. You do not need to be a developer, or use GitHub at all, to participate.
 
-## How To Engage
+## Ways to engage
 
-We are **not accepting pull requests** at this time. If you are a housing operator,
-agency, vendor, or civic technologist and want to discuss the interface, suggest a
-correction, or explore implementing against it, please open an issue describing your
-context, or reach out via the contact link in the README.
+- **Email.** If GitHub is not your habitat, email **zach@harmonyworks.com** with feedback, corrections, questions, or a request to be listed as a supporter. Email carries the same weight as any other channel.
+- **Discussions.** For open-ended questions and ideas about the Standard, use GitHub Discussions.
+- **Issues.** For a specific correction, gap, or proposal, open an issue. Describe your context: operator, vendor, agency, civic technologist, or applicant advocate.
+- **Pull requests.** PRs are welcome, from a typo fix to a schema change proposal. Schema changes should include or update examples and tests. All PRs are reviewed by a maintainer before merge.
 
-## What Stays In Scope
+## What stays in scope
 
-The public standard is limited to synthetic examples, reference interfaces, documented
-workflows, and human-reviewed agent actions. It contains no real applicant data, no live
-credentials, and no production endpoints.
+The public Standard is limited to synthetic examples, reference interfaces, documented workflows, and human-reviewed agent actions. It contains no real applicant data, no live credentials, and no production endpoints. Contributions that include real personal data will be declined and removed.
 
-## Principles We Hold
+## Review expectations
+
+Maintainers review for the boundaries in [docs/governance.md](docs/governance.md): privacy posture, vendor neutrality, synthetic-only examples, and clarity for both technical and policy readers. Reviews aim to be responsive and reasons are given in the open.
+
+## Principles we hold
 
 - Every example is synthetic.
 - Vendor neutrality is preserved.

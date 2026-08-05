@@ -2,7 +2,7 @@
 
 ## Overview
 
-Affordable Housing Interop Kit defines an interface layer between housing workflow participants.
+The Open Housing Data Standard defines an interface layer between housing workflow participants.
 
 ```text
 Tenant / Applicant

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Email the maintainers
+    url: "mailto:zach@harmonyworks.com"
+    about: Feedback by email carries the same weight as an issue. No GitHub experience needed.
+  - name: Discussions
+    url: "https://github.com/zrabin/affordable-housing-interop-kit/discussions"
+    about: Open-ended questions and ideas about the Standard.
