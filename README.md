@@ -1,181 +1,112 @@
 <p align="center">
-  <img src="assets/cover.png" alt="Affordable Housing Interop Kit cover art" width="100%" />
+  <img src="assets/hero.svg" alt="Diagram: today's tangled housing data handoffs on the left, the same actors connected through one shared Open Housing Data Standard on the right" width="100%" />
 </p>
 
-# Affordable Housing Interop Kit
+# Open Housing Data Standard
+
+**An open data standard for New York's affordable housing applications.**
 
 ![Validate](https://github.com/zrabin/affordable-housing-interop-kit/actions/workflows/validate.yml/badge.svg)
 
-An open reference architecture for modern, auditable, agent-ready affordable housing application workflows.
+Every affordable housing application passes through many hands: the applicant, a marketing agent, an owner, a compliance team, and one or more public agencies. Today those handoffs run on PDF checklists, phone calls, email chains, and duplicated data entry. Each organization keeps its own copy of the truth, and nobody, including the applicant, can see the whole picture.
 
-This repository defines a public interoperability layer: a neutral set of schemas, APIs, MCP tools, civic skill definitions, CLI commands, synthetic data, and implementation patterns that housing operators, software vendors, civic technology teams, and public agencies can build against.
+This project proposes a shared, open way to represent that work. Think of it as a common language for housing applications, the way the Common App became a common language for college admissions. It is free to use, open to inspection, and owned by no single vendor. Anyone can implement it, including organizations that compete with each other.
 
-It uses synthetic data for safety and repeatability. The focus is the shared interface surface for privacy-preserving, inspectable, interoperable affordable housing infrastructure.
+*Open Housing Data Standard is a working name. One of the first things we want to decide with co-stewards is what this effort should be called.*
 
-## Why This Exists
+## The idea in one picture
 
-Affordable housing workflows sit between tenants, marketing agents, owners, compliance teams, and public agencies. The current ecosystem often depends on brittle handoffs, manual status checks, duplicated data entry, opaque eligibility steps, and vendor-specific workflows.
+Every application moves through the same lifecycle, no matter who runs the building or which software they use. The Standard gives each step a shared, machine-readable form:
 
-The next generation should be different:
-
-- tenant-consented data flows
-- clear audit trails
-- standardized application packets
-- machine-readable eligibility and document requirements
-- secure status updates
-- reusable civic skills
-- public-facing integration patterns
-- agent-ready workflows with human oversight
-- enough openness that multiple vendors can participate fairly
-
-This kit is a reference point for that future.
-
-## Scope
-
-This repo defines a reference interoperability layer for affordable housing workflows:
-
-- **Schemas** for applicants, households, applications, document requests, status events, notices, and audit records.
-- **OpenAPI spec** for conventional software integrations.
-- **MCP tools** for agentic workflows.
-- **Civic skill catalog** for repeatable, reviewable housing capabilities.
-- **CLI command surface** for developer and operator workflows.
-- **Synthetic data harness** so teams can test without private or regulated data.
-- **Principles and governance docs** to keep the effort public-spirited, transparent, and safe.
-
-## Reference Boundaries
-
-The reference layer is designed for standards discussion, synthetic workflow testing, and implementation planning. It covers:
-
-- interface design
-- synthetic examples
-- reference API/MCP/CLI surfaces
-- privacy and consent patterns
-- audit event modeling
-- human-reviewed agent actions
-
-## Guiding Posture
-
-The guiding posture is simple:
-
-> Make the gate legible, documented, auditable, and usable by everyone.
-
-An affordable housing platform should have a clear, trustworthy way to participate in a modern workflow. If a city, agency, owner, marketing agent, or technology provider wants to build a better application experience, the interface should be clear enough to reason about and safe enough to trust.
-
-## Core Concepts
-
-### Application Packet
-
-A structured, tenant-consented bundle of household, income, preference, document, and eligibility information.
-
-### Consent Grant
-
-A bounded permission from a tenant or applicant allowing a specific party or system to use specific data for a specific purpose.
-
-### Status Event
-
-A machine-readable update in the application lifecycle: submitted, missing documents, under review, eligible, ineligible, selected, waitlisted, withdrawn, or closed.
-
-### Document Request
-
-A structured request for missing or expired documents, including reason, due date, acceptable formats, and responsible party.
-
-### Audit Trail
-
-An append-only log of actions taken by humans, systems, or agents, with timestamps, actor identity, purpose, and source.
-
-### Agent Tool
-
-A carefully scoped action an AI agent can take through MCP or another tool interface, with explicit guardrails and review boundaries.
-
-### Civic Skill
-
-A repeatable housing workflow capability, such as packet validation, missing-document drafting, or applicant status explanation, described in plain language and mapped to auditable tools, approval boundaries, and expected outputs.
-
-## Repository Map
-
-```text
-.
-├── README.md
-├── package.json                 # scripts: generate · validate · demo · mcp · test
-├── openapi.yaml                 # REST interface spec (reference)
-├── lib/
-│   ├── validate.mjs             # ajv schema validator — validate(name, data) -> { valid, errors }
-│   ├── audit.mjs                # makeAuditEvent(...) -> schema-valid audit record
-│   └── demo.mjs                 # runDemo() — end-to-end flow + negative path
-├── synthetic-data/
-│   ├── generate.mjs             # seedable synthetic application-packet generator
-│   ├── fixtures/                # committed golden packets (seed 42, reproducible)
-│   └── README.md
-├── cli/
-│   ├── ahik.mjs                 # CLI: demo · mcp · help
-│   └── ahik.md                  # CLI reference
-├── mcp/
-│   ├── server.mjs               # reference MCP stdio server (6 audited tools)
-│   └── tools.md                 # tool reference
-├── scripts/
-│   ├── validate-json.mjs        # JSON parse check
-│   └── validate-schema.mjs      # schema validation of examples
-├── lib/skills/                  # real skills: completeness.mjs · status-explanation.mjs
-├── test/                        # node:test suites (26 tests)
-├── schemas/
-│   ├── application-packet.schema.json
-│   ├── status-event.schema.json
-│   ├── document-request.schema.json
-│   └── audit-event.schema.json
-├── examples/                    # synthetic example payloads
-├── docs/                        # architecture · principles · governance · security · skill-catalog · ...
-├── assets/cover.png
-├── AUTHORS.md
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── LICENSE
-└── .github/workflows/validate.yml   # CI: install -> validate -> generate -> demo -> test
+```mermaid
+stateDiagram-v2
+    direction LR
+    state "Submitted" as submitted
+    state "Missing documents" as missing
+    state "Under review" as review
+    state "Eligible" as eligible
+    state "Ineligible" as ineligible
+    state "Selected" as selected
+    state "Waitlisted" as waitlisted
+    state "Closed" as closed
+    [*] --> submitted
+    submitted --> missing: document request
+    missing --> review: documents received
+    submitted --> review
+    review --> eligible
+    review --> ineligible
+    eligible --> selected
+    eligible --> waitlisted
+    waitlisted --> selected
+    selected --> closed
+    ineligible --> closed
+    waitlisted --> closed
+    closed --> [*]
 ```
 
-## Example Agent Actions
+An application can also be withdrawn by the applicant at any point. Every arrow in that picture is a **status event** any compliant system can read. Five building blocks flow through the lifecycle, and the Standard defines a schema for each:
 
-An AI agent should never have unlimited access to sensitive housing workflows. It should operate through narrow, auditable tools. The reference MCP server (`mcp/server.mjs`) exposes **seven** such tools today, and every call returns an audit event. Three are backed by **real skill logic**; the rest are **audited stubs** that exercise the interface and audit model without a backend:
+| Building block | What it is |
+| --- | --- |
+| **Application packet** | A structured, tenant-consented bundle of household, income, document, and eligibility information |
+| **Status event** | A machine-readable update in the application lifecycle |
+| **Document request** | A structured request for a missing or expired document, with reason, due date, and acceptable formats |
+| **Notice** | A structured applicant-facing communication: appointments, deadlines, eligibility outcomes, lease offers |
+| **Audit event** | An append-only record of every meaningful action, by human or software, with actor, purpose, and timestamp |
 
-- `validate_application_packet` — validate a packet against the schema *(real)*
-- `check_application_packet_completeness` — flag outstanding documents for human review; does not determine eligibility *(real skill)*
-- `summarize_application_status` — produce an applicant-facing status draft for human review *(real skill)*
-- `create_document_request_draft` — draft a request for a missing document, human review required *(stub)*
-- `record_consent_grant` — record a synthetic consent grant *(stub)*
-- `append_audit_event` — append a synthetic audit event *(stub)*
-- `generate_notice_draft` — draft an applicant-facing notice, human review required *(stub)*
+Plain-language definitions for every term live in [docs/concepts.md](docs/concepts.md).
 
-Each tool specifies:
+## Find your door
 
-- required inputs
-- allowed outputs
-- human approval boundary
-- privacy classification
-- audit behavior
-- failure modes
+### If you run lease-up or marketing for affordable housing
 
-Additional tools (e.g. `create_application_packet`, `request_missing_documents`) are planned. See [mcp/tools.md](mcp/tools.md).
+A shared standard means an application prepared once can be understood everywhere, statuses answer themselves instead of generating phone calls, and switching or adding software vendors stops meaning starting over. [docs/nyc-context.md](docs/nyc-context.md) maps the Standard onto the New York lease-up workflow you already know.
 
-## Civic Skill Catalog
+You do not need to read code, or use GitHub at all, to be part of this. See [How to participate](#how-to-participate).
 
-> **Status:** Two skills are **implemented and runnable** today (see Quickstart). The rest are **(planned)** reference definitions in [docs/skill-catalog.md](docs/skill-catalog.md).
+### If you build housing software
 
-Skills make the platform story easier to understand. A skill is the product-level capability; an MCP tool is one way that capability can be executed safely.
+The repository contains JSON schemas, an OpenAPI surface, MCP tools for agent workflows, a runnable reference implementation with a synthetic data harness, and a test suite. Everything runs from a fresh clone; see [For developers](#for-developers). The Standard is vendor-neutral by design: any compliant system can implement it, and no implementer owes anything to any other.
 
-- **application packet completeness check** — *implemented* (`ahik completeness`)
-- **applicant status explanation** — *implemented* (`ahik status`)
-- missing-document request draft — *(planned)*
-- eligibility evidence organizer — *(planned)*
-- consent grant recorder — *(planned)*
-- audit trail explainer — *(planned)*
-- synthetic lease-up simulator — *(planned)*
+### If you work in government or policy
 
-Each skill defines the user it serves, the inputs it needs, the tools it may call, the review boundary, the audit events it creates, and the failure modes it must disclose.
+The Standard is built for public-sector scrutiny: every example is synthetic, tenant consent is a first-class object rather than an afterthought, every action lands in an append-only audit trail, and agent-driven actions carry explicit human-review boundaries. Start with [docs/security-and-privacy.md](docs/security-and-privacy.md), [docs/principles.md](docs/principles.md), and [docs/governance.md](docs/governance.md).
 
-See [docs/skill-catalog.md](docs/skill-catalog.md).
+## How to participate
 
-## Quickstart
+This is an open invitation, and it is deliberately easy to accept.
 
-Requires Node 22+.
+- **Support the Standard.** Read [CHARTER.md](CHARTER.md), which states the principles and exactly what supporting does and does not commit you to (no fees, no exclusivity, no obligation to adopt anything). To be listed in [SUPPORTERS.md](SUPPORTERS.md), email **zach@harmonyworks.com** with your organization's name, or open a pull request.
+- **Give feedback.** Email works. So do [GitHub issues](../../issues) and [discussions](../../discussions) if that is your habitat. We want to hear what is wrong or missing at least as much as what resonates.
+- **Implement or co-steward.** If you want to build against the Standard or help govern it, [docs/governance.md](docs/governance.md) describes the path from supporter to co-steward.
+
+A convening of supporters is being planned. Supporters will be the first to hear about it.
+
+## What's in this repository
+
+- **Schemas** for application packets (applicant, household, consent grants, documents), status events, document requests, notices, and audit records
+- **OpenAPI spec** for conventional software integrations
+- **MCP tools** for agent workflows with human-review boundaries
+- **Civic skill catalog** for repeatable, reviewable housing capabilities
+- **CLI and reference implementation** so the Standard is runnable, not just readable
+- **Synthetic data harness** so teams can test without private or regulated data
+- **Principles and governance docs** to keep the effort public-spirited, transparent, and safe
+
+| Surface | Status |
+| --- | --- |
+| JSON schemas (5), OpenAPI spec, examples | implemented |
+| Synthetic generator (seedable) + golden fixtures | implemented |
+| Validator + test suite (28 tests) | implemented |
+| End-to-end demo (`ahik demo`) with negative path + audit | implemented |
+| Skills: completeness check + applicant status explanation | implemented |
+| MCP reference server (7 tools: 3 real skills + 4 audited stubs) | implemented |
+| Remaining skill catalog (e.g. synthetic lease-up simulator) | planned |
+
+More diagrams, including the human-in-the-loop agent flow, live in [docs/diagrams.md](docs/diagrams.md).
+
+## For developers
+
+Requires Node 22+. Run everything from a clone of this repo; no global install needed.
 
 ```bash
 npm install
@@ -185,35 +116,50 @@ npm run demo                      # end-to-end flow: generate -> validate -> sta
 node cli/ahik.mjs completeness    # skill: flag a packet's outstanding documents (synthetic) for human review
 node cli/ahik.mjs status          # skill: produce a plain-language applicant status draft (human-review-gated)
 npm run mcp                       # start the reference MCP server (stdio)
-npm test                          # run the test suite (26 tests)
+npm test                          # run the test suite (28 tests)
 ```
 
-> Run everything from a clone of this repo (the commands resolve to repo-local code). No global install or npm package required.
+The reference MCP server exposes seven narrowly scoped, audited tools (validate a packet, check completeness, summarize status, draft a document request, record a consent grant, append an audit event, draft a notice). Every call returns an audit event, and applicant-facing drafts require human review. See [mcp/tools.md](mcp/tools.md) and [docs/skill-catalog.md](docs/skill-catalog.md).
 
-**What runs today:**
+CI runs `validate -> generate -> demo -> test` on a clean checkout, so "it runs from a fresh clone" is enforced, not asserted.
 
-- `npm run generate` emits schema-valid synthetic application packets. The generator is **seedable** — `node synthetic-data/generate.mjs 3 --seed 42 --out fixtures` reproduces the committed golden fixtures byte-for-byte (so CI can detect drift); unseeded runs are fresh each time.
-- `npm run demo` shows the full pattern end to end: a packet is organized, validated, turned into a plain-language **status event** for the applicant, and an **audit event** is written for every step. It then runs a **negative path** — a deliberately invalid packet is caught at the schema level and the rejection is itself logged.
-- **Two real skills** (`lib/skills/`): `completeness` inspects a packet's documents against the required set and flags what's outstanding for human review (it does **not** determine eligibility); `status` orchestrates that into a human-review-gated, plain-language applicant status draft. Both emit audit events and are exposed over the CLI and MCP.
-- `npm run mcp` starts the reference MCP server over stdio, exposing the seven audited tools above.
-- CI (`.github/workflows/validate.yml`) runs `validate -> generate -> demo -> test` on a clean checkout, so "it runs from a fresh clone" is enforced, not asserted.
+<details>
+<summary>Repository map</summary>
 
-| Surface | Status |
-| --- | --- |
-| JSON schemas, OpenAPI spec, examples | implemented |
-| Synthetic generator (seedable) + golden fixtures | implemented |
-| Validator + test suite (26 tests) | implemented |
-| End-to-end demo (`ahik demo`) with negative path + audit | implemented |
-| Skills: completeness check + applicant status explanation | implemented |
-| MCP reference server (7 tools — 3 real skills + 4 audited stubs) | implemented |
-| Remaining skill catalog (e.g. Synthetic Lease-Up Simulator) | planned |
+```text
+.
+├── README.md
+├── CHARTER.md                   # the principles + what supporting means
+├── SUPPORTERS.md                # organizations supporting the Standard
+├── package.json                 # scripts: generate · validate · demo · mcp · test
+├── openapi.yaml                 # REST interface spec (reference)
+├── lib/
+│   ├── validate.mjs             # ajv schema validator
+│   ├── audit.mjs                # makeAuditEvent(...) helper
+│   ├── demo.mjs                 # runDemo(): end-to-end flow + negative path
+│   └── skills/                  # real skills: completeness.mjs · status-explanation.mjs
+├── synthetic-data/              # seedable generator + committed golden fixtures
+├── cli/                         # ahik CLI + reference
+├── mcp/                         # reference MCP stdio server + tool reference
+├── scripts/                     # JSON + schema validation scripts
+├── test/                        # node:test suites (28 tests)
+├── schemas/
+│   ├── application-packet.schema.json
+│   ├── status-event.schema.json
+│   ├── document-request.schema.json
+│   ├── notice.schema.json
+│   └── audit-event.schema.json
+├── examples/                    # synthetic example payloads
+├── docs/                        # concepts · nyc-context · architecture · principles · governance · security · ...
+└── .github/workflows/validate.yml   # CI: install -> validate -> generate -> demo -> test
+```
 
-See [docs/diagrams.md](docs/diagrams.md) for the architecture diagram.
+</details>
 
-## Design Principles
+## Design principles
 
-- **Public good first**: the standard should help the ecosystem, not only one vendor.
-- **No private data in the standard**: examples must be synthetic.
+- **Public good first**: the Standard should help the ecosystem, not only one vendor.
+- **No private data in the Standard**: examples must be synthetic.
 - **Tenant consent is central**: data movement must be intentional and bounded.
 - **Audit everything**: every meaningful action should be reconstructable.
 - **Human-in-the-loop by default**: agents can assist, but sensitive decisions need review.
@@ -222,29 +168,12 @@ See [docs/diagrams.md](docs/diagrams.md) for the architecture diagram.
 
 See [docs/principles.md](docs/principles.md).
 
-## Project Status
-
-Status: public reference implementation.
-
-This repository is suitable for:
-
-- technical alignment
-- public-sector review
-- implementation planning
-- synthetic workflow testing
-- production-grade governance, privacy, and review-boundary design
-
 ## License
 
 Code is licensed under the MIT License. Documentation and examples are available under CC BY 4.0.
 
-## Acknowledgments
+## About this project
 
-The original concept and initial scaffolding for this kit came from **Clark Valberg**.
+The Open Housing Data Standard was initiated by [Harmony](https://harmonyworks.com), which builds affordable housing application technology, and is offered as a public good in search of co-stewards. The original concept and initial scaffolding came from Clark Valberg.
 
-## Note
-
-This is an independent reference project built by Zach Rabin, who works on
-affordable-housing-application technology. It is **not affiliated with, endorsed by, or
-built under contract with** the City of New York, HPD, or any housing agency. All data and
-examples are synthetic.
+This project is **not affiliated with, endorsed by, or built under contract with** the City of New York, HPD, HDC, or any housing agency. All data and examples are synthetic.

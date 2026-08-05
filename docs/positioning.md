@@ -2,7 +2,7 @@
 
 ## The Sentence
 
-Affordable Housing Interop Kit is an open reference layer for modern, auditable, agent-ready affordable housing application workflows.
+The Open Housing Data Standard is an open data standard for New York's affordable housing applications, with a runnable reference implementation.
 
 ## The Longer Version
 
