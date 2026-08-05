@@ -1,0 +1,14 @@
+{
+  "notice_id": "ntc_synthetic_001",
+  "application_id": "pkt_synthetic_001",
+  "notice_type": "appointment",
+  "subject": "Your document review appointment",
+  "body": "Your application has been selected for review. Please attend your scheduled appointment and bring the documents listed in your checklist. If you cannot attend, respond before the date below to reschedule.",
+  "channel": "portal",
+  "created_at": "2026-06-16T16:05:00Z",
+  "sent_at": "2026-06-16T16:10:00Z",
+  "respond_by": "2026-06-27T23:59:59Z",
+  "issuing_party": "Synthetic Marketing Agent",
+  "related_status_event_id": "evt_synthetic_001",
+  "human_review_required": true
+}

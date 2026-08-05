@@ -6,6 +6,7 @@ const exampleToSchema = {
   "application-packet.example.json": "application-packet",
   "document-request.example.json": "document-request",
   "status-event.example.json": "status-event",
+  "notice.example.json": "notice",
 };
 
 let failures = 0;
