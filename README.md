@@ -8,9 +8,15 @@
 
 ![Validate](https://github.com/open-housing-data-standard/standard/actions/workflows/validate.yml/badge.svg)
 
-Every affordable housing application passes through many hands: the applicant, a marketing agent, an owner, a compliance team, and one or more public agencies. Today those handoffs run on PDF checklists, phone calls, email chains, and duplicated data entry. Each organization keeps its own copy of the truth, and nobody, including the applicant, can see the whole picture.
+## What is this?
 
-This project proposes a shared, open way to represent that work. Think of it as a common language for housing applications, the way the Common App became a common language for college admissions. It is free to use, open to inspection, and owned by no single vendor. Anyone can implement it, including organizations that compete with each other.
+Applying for affordable housing in New York takes a lot of paperwork. The same family fills out the same forms again and again. The people who process those applications retype the same information into different computer systems. Everyone loses time, and families wait longer for homes.
+
+This project is a plan to fix that. It asks every company and agency that touches housing applications to describe them the same way, so their computer systems can understand each other. Like every phone charger using the same plug. Organizations that compete with each other can still share the same plug.
+
+It is free. No company owns it. Anyone can use it and help make it better. Think of it as a Common App for affordable housing: one shared way to describe an application, wherever it goes.
+
+You are reading this on GitHub, a public website where open projects like this one are built. You do not need an account or any technical skill to take part. To join or ask a question, email **russ@harmonyworks.com** and **zach@harmonyworks.com**.
 
 *Open Housing Data Standard is a working name. One of the first things we want to decide with co-stewards is what this effort should be called.*
 

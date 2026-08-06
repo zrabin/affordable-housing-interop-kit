@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Housing Data Standard</title>
+<meta name="description" content="An open data standard for New York's affordable housing applications. Free, public, and owned by no single company.">
+<style>
+  :root { --blue: #2563eb; --ink: #1e293b; --muted: #475569; --amber: #b45309; --bg: #ffffff; --panel: #f8fafc; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.65; }
+  header { background: var(--blue); color: #fff; padding: 3.5rem 1.25rem 3rem; text-align: center; }
+  header h1 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); line-height: 1.2; }
+  header p { margin-top: 0.75rem; font-size: clamp(1rem, 2.5vw, 1.2rem); color: #dbeafe; }
+  main { max-width: 42rem; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
+  h2 { font-size: 1.35rem; margin: 2.25rem 0 0.75rem; }
+  p { margin: 0.9rem 0; }
+  p.lead { font-size: 1.08rem; }
+  .actions { display: grid; gap: 1rem; margin-top: 1rem; }
+  .action { background: var(--panel); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.1rem 1.25rem; }
+  .action strong { display: block; margin-bottom: 0.3rem; }
+  a { color: var(--blue); }
+  .btn { display: inline-block; background: var(--blue); color: #fff; text-decoration: none; font-weight: 600; padding: 0.8rem 1.4rem; border-radius: 10px; margin-top: 1.25rem; }
+  .note { font-size: 0.92rem; color: var(--muted); }
+  footer { border-top: 1px solid #e2e8f0; margin-top: 1rem; padding: 1.75rem 1.25rem 2.5rem; text-align: center; font-size: 0.9rem; color: var(--muted); }
+  footer p { max-width: 42rem; margin: 0.5rem auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Open Housing Data Standard</h1>
+  <p>An open data standard for New York's affordable housing applications</p>
+</header>
+<main>
+  <p class="lead">Applying for affordable housing in New York takes a lot of paperwork. The same family fills out the same forms again and again. The people who process those applications retype the same information into different computer systems. Everyone loses time, and families wait longer for homes.</p>
+
+  <p>This project is a plan to fix that. It asks every company and agency that touches housing applications to describe them the same way, so their computer systems can understand each other. Like every phone charger using the same plug. Organizations that compete with each other can still share the same plug.</p>
+
+  <p>It is free. No company owns it. Anyone can use it and help make it better. Think of it as a Common App for affordable housing: one shared way to describe an application, wherever it goes.</p>
+
+  <h2>Why it matters</h2>
+  <p>When housing systems speak the same language, applications move faster. Families answer questions once instead of five times. Anyone can check where an application stands without making phone calls. And there is a clear record of every step, so the process is fair and easy to trust.</p>
+
+  <h2>What you can do</h2>
+  <div class="actions">
+    <div class="action">
+      <strong>1. Read the ideas</strong>
+      Our <a href="https://github.com/open-housing-data-standard/standard/blob/main/CHARTER.md">charter</a> explains the five principles in a few minutes of reading. The <a href="https://github.com/open-housing-data-standard/standard">full project</a> is public, down to every detail.
+    </div>
+    <div class="action">
+      <strong>2. Tell us what's wrong</strong>
+      You know this work better than anyone. If something is missing or incorrect, we want to hear it. Email <a href="mailto:russ@harmonyworks.com,zach@harmonyworks.com">russ@harmonyworks.com and zach@harmonyworks.com</a>.
+    </div>
+    <div class="action">
+      <strong>3. Add your organization as a supporter</strong>
+      Supporting means agreeing with the principles. It costs nothing and commits you to nothing else. Your organization joins the public <a href="https://github.com/open-housing-data-standard/standard/blob/main/SUPPORTERS.md">supporters list</a>.
+    </div>
+  </div>
+  <a class="btn" href="mailto:russ@harmonyworks.com,zach@harmonyworks.com?subject=Open%20Housing%20Data%20Standard">Email us to join</a>
+  <p class="note">No account needed. No technical skill needed. An email is enough.</p>
+</main>
+<footer>
+  <p>The Open Housing Data Standard was started by <a href="https://harmonyworks.com">Harmony</a>, a housing technology company, and is looking for partners to help guide it. "Open Housing Data Standard" is a working name; those partners will help choose the final one.</p>
+  <p>This project is not affiliated with, endorsed by, or built under contract with the City of New York, HPD, HDC, or any housing agency. All example data is synthetic.</p>
+</footer>
+</body>
+</html>
