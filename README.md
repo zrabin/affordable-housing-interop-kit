@@ -6,7 +6,7 @@
 
 **An open data standard for New York's affordable housing applications.**
 
-![Validate](https://github.com/zrabin/affordable-housing-interop-kit/actions/workflows/validate.yml/badge.svg)
+![Validate](https://github.com/open-housing-data-standard/standard/actions/workflows/validate.yml/badge.svg)
 
 Every affordable housing application passes through many hands: the applicant, a marketing agent, an owner, a compliance team, and one or more public agencies. Today those handoffs run on PDF checklists, phone calls, email chains, and duplicated data entry. Each organization keeps its own copy of the truth, and nobody, including the applicant, can see the whole picture.
 

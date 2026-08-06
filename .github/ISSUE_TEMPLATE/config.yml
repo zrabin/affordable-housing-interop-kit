@@ -4,5 +4,5 @@ contact_links:
     url: "mailto:russ@harmonyworks.com,zach@harmonyworks.com"
     about: Feedback by email carries the same weight as an issue. No GitHub experience needed.
   - name: Discussions
-    url: "https://github.com/zrabin/affordable-housing-interop-kit/discussions"
+    url: "https://github.com/open-housing-data-standard/standard/discussions"
     about: Open-ended questions and ideas about the Standard.
